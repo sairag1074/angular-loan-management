@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ViewLoanService } from '../service/view-loan.service';
+import { Loan } from '../model/loan';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-apply-loan',
@@ -9,8 +13,12 @@ import Swal from 'sweetalert2';
 })
 export class ApplyLoanComponent {
   loanForm: FormGroup ;
+
+  loan:Loan={};
+
+    user:User={};
   
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private route:Router,private service:ViewLoanService) {
     this.loanForm = this.fb.group({
       userName: ['', Validators.required],
       address: ['', Validators.required],
@@ -57,8 +65,8 @@ export class ApplyLoanComponent {
 
   onSubmit(): void {
     if (this.loanForm.valid) {
-      console.log('Form Submitted', this.loanForm.value);
-      this.loanForm.reset();
+     
+      
 
       const Toast =Swal.mixin({
         toast: true,
@@ -76,7 +84,16 @@ export class ApplyLoanComponent {
         icon: 'success',
         title: 'Added in successfully'
       });
-  
+
+         this.user={"userName":this.loanForm.value.userName,"address":this.loanForm.value.address,"mobile":this.loanForm.value.mobno,"salary":this.loanForm.value.salary,"panId":this.loanForm.value.panid};
+         this.loan={"loanAmount":this.loanForm.value.loanamount,"tenureInMonths":this.loanForm.value.tenure,"user":this.user};
+      this.service.applyForLoan(this.loan).subscribe(()=>{
+            this.loanForm.reset();
+
+            this.route.navigate(['/viewloan']);
+      },(error)=>{
+          this.route.navigate(['/error']);
+      })
 
  
     } else {
