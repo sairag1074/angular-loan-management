@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ViewLoanService } from '../service/view-loan.service';
  
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class HomeComponent {
   panForm: FormGroup ;
  
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private route:Router,private service:ViewLoanService) {
     this.panForm = this.fb.group({
       panid: ['', [Validators.required,Validators.maxLength(10)]]
     });
@@ -25,15 +27,23 @@ export class HomeComponent {
   ngOnInit(): void {
    
   }
+
+     applyLoan(){
+         console.log("button clicked");
+         this.route.navigate(['/applyloan']);  
+     }
  
-  onSubmit(): void {
-    if (this.panForm.valid) {
-      console.log('Form Submitted', this.panForm.value);
-      this.panForm.reset();
- 
-    } else {
-      console.log('Form is invalid');
-      this.panForm.reset();
-    }
+  onSubmit(){
+      
+         this.service.viewLoanDetailsById(this.panForm.value).subscribe((loanDetils)=>{
+            this.service.setLoanDetails(loanDetils);
+            this.panForm.reset();
+              this.route.navigate(['/viewloan']);
+
+         },
+        (error)=>{
+
+                 
+        })
   }
 }

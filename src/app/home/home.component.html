@@ -5,7 +5,7 @@
           <span class="text-muted"><i><b>Loan Management System</b></i></span>
         </div>
         <div class="d-flex justify-content-around w-100 mt-3">
-          <button class="btn btn-outline-primary btn-lg rounded-pill">Apply Loan</button>
+          <button class="btn btn-outline-primary btn-lg rounded-pill" (click)="applyLoan()">Apply Loan</button>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-outline-primary btn-lg rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
     View Loan Details
@@ -25,23 +25,20 @@
               <label for="panid" class="form-label">PAN Number:</label>
               <input type="text" class="form-control" id="panid" formControlName="panid" placeholder="ABCDE1234F" required>
               <small class="form-text text-muted">Format: ABCDE1234F</small>
-              <!-- <div *ngIf="panid.touched && panid.invalid &&panid.errors?.['required']" >
-                <p style="color: red;">*PAN Number is required</p>
-                <p *ngIf="panid.errors?.['maxlength']" style="color: red;">*Invalid PAN Number format</p>
-              </div> -->
+           
  
  
  
-              <p class="error-msg" *ngIf="panid.touched && panid.invalid && panForm.controls['panid'].errors?.['required']"
+      <p class="error-msg" *ngIf="panid.touched && panid.invalid && panForm.controls['panid'].errors?.['required']"
       style="color: red;">*pan id is required</p>
     <p class="error-msg" *ngIf="panid.touched && panid.invalid && panForm.controls['panid'].errors?.['pattern']"
       style="color: red;">*pan id must contain 10 digits only.</p>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">View Loan</button>
+            </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

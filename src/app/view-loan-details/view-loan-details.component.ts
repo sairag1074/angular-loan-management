@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Chart,registerables } from 'chart.js';
+import { ViewLoanService } from '../service/view-loan.service';
+import { Loan } from '../model/loan';
 Chart.register(...registerables);
 
 @Component({
@@ -11,8 +13,22 @@ Chart.register(...registerables);
 
 export class ViewLoanDetailsComponent implements OnInit {
 
+   
+    loanDetails:Loan={};
+    outStandingBalance=this.loanDetails.emi! * this.loanDetails.tenureInMonths!;
+    TotalBorrowings=this.loanDetails.loanAmount;
+    currentOutstanding=this.loanDetails.emi!;
+
+    totalMonthsEMILeft:number=this.loanDetails.tenureInMonths!;
+    monthlyEMIMOney=this.loanDetails.emi!;
+
+
+    constructor(private service:ViewLoanService){}
+
   chart:any;
   ngOnInit(): void {
+
+       this.loanDetails=this.service.getLoanDetails();
     this.chart = new Chart("MyChart", {
       type: 'bar', 
       data: this.data,
@@ -33,13 +49,7 @@ export class ViewLoanDetailsComponent implements OnInit {
   }
 
      
-    outStandingBalance=150000;
-    TotalBorrowings=250000;
-    currentOutstanding=25000;
-
-    totalMonthsEMILeft=15;
-    monthlyEMIMOney=25000;
-
+    
     readonly monthNames = [
       "Jan", "Feb", "Mar", "Apr", "May", "June",
       "July", "Aug", "Sept", "Oct", "Nov", "Dec"
