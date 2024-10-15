@@ -1,61 +1,75 @@
 <div class="container mt-5">
-  <h2 class="mb-4">User and Loan Details Form</h2>
-  <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>User and Loan Details Form</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+            <div class="form-group mb-3">
+              <label for="username">User Name:</label>
+              <input type="text" id="username" formControlName="userName" class="form-control">
+              <div *ngIf="loanForm.controls['userName'].touched && loanForm.controls['userName'].invalid">
+                <small class="text-danger" *ngIf="loanForm.controls['userName'].errors?.['required']">*Username is required</small>
+              </div>
+            </div>
 
-    <div class="form-group mb-3">
-      <label for="username">User Name:</label>
-      <input type="text" id="username" formControlName="userName" class="form-control">
-    </div>
-    <div *ngIf="userName.touched && userName.invalid&&loanForm.controls['userName'].errors?.['required']">
-      <p style="color: red;">*Username is required</p>
-    </div>
+            <div class="form-group mb-3">
+              <label for="address">Address:</label>
+              <input type="text" id="address" formControlName="address" class="form-control">
+              <div *ngIf="loanForm.controls['address'].touched && loanForm.controls['address'].invalid">
+                <small class="text-danger" *ngIf="loanForm.controls['address'].errors?.['required']">*Address is required</small>
+              </div>
+            </div>
 
-    <div class="form-group mb-3">
-      <label for="address">Address:</label>
-      <input type="text" id="address" formControlName="address" class="form-control">
-    </div>
-    <div *ngIf="address.touched && address.invalid&&loanForm.controls['address'].errors?.['required']">
-      <p style="color: red;">*address is required</p>
-    </div>
+            <div class="form-group mb-3">
+              <label for="mobno">Mobile Number:</label>
+              <input type="text" id="mobno" formControlName="mobno" class="form-control">
+              <div *ngIf="loanForm.controls['mobno'].touched && loanForm.controls['mobno'].invalid">
+                <small class="text-danger" *ngIf="loanForm.controls['mobno'].errors?.['required']">*Mobile number is required</small>
+                <small class="text-danger" *ngIf="loanForm.controls['mobno'].errors?.['pattern']">*Mobile number must contain 10 digits only.</small>
+              </div>
+            </div>
 
-    <div class="form-group mb-3">
-      <label for="mobno">Mobile Number:</label>
-      <input type="text" id="mobno" formControlName="mobno" class="form-control">
-    </div>
-    <p class="error-msg" *ngIf="mobno.touched && mobno.invalid && loanForm.controls['mobno'].errors?.['required']"
-      style="color: red;">*Mobile number is required</p>
-    <p class="error-msg" *ngIf="mobno.touched && mobno.invalid && loanForm.controls['mobno'].errors?.['pattern']"
-      style="color: red;">*Mobile number must contain 10 digits only.</p>
+            <div class="form-group mb-3">
+              <label for="salary">Salary:</label>
+              <input type="text" id="salary" formControlName="salary" class="form-control">
+              <div *ngIf="loanForm.controls['salary'].touched && loanForm.controls['salary'].invalid">
+                <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['required']">*Salary is required</small>
+              </div>
+            </div>
 
-    <div class="form-group mb-3">
-      <label for="salary">Salary:</label>
-      <input type="text" id="salary" formControlName="salary" class="form-control">
-    </div>
-    <div *ngIf="salary.touched && salary.invalid&&loanForm.controls['salary'].errors?.['required']">
-      <p style="color: red;">*salary is required</p>
-    </div>
+            <div class="form-group mb-3">
+              <label for="panid">PAN ID:</label>
+              <input type="text" id="panid" formControlName="panid" class="form-control">
+              <div *ngIf="loanForm.controls['panid'].touched && loanForm.controls['panid'].invalid">
+                <small class="text-danger" *ngIf="loanForm.controls['panid'].errors?.['required']">*PAN ID is required</small>
+                <small class="text-danger" *ngIf="loanForm.controls['panid'].errors?.['maxlength']">*PAN ID must contain 10 character only.</small>
+                <small class="text-danger" *ngIf="loanForm.controls['panid'].errors?.['minlength']">*PAN ID must contain 10 character only.</small>
+              </div>
+            </div>
 
-    <div class="form-group mb-3">
-      <label for="panid">PAN ID:</label>
-      <input type="text" id="panid" formControlName="panid" class="form-control">
+            <div class="form-group mb-3">
+              <label for="loanamount">Loan Amount:</label>
+              <input type="text" id="loanamount" formControlName="loanamount" class="form-control">
+              <div *ngIf="loanForm.controls['loanamount'].touched && loanForm.controls['loanamount'].invalid">
+                <small class="text-danger" *ngIf="loanForm.controls['loanamount'].errors?.['required']">*Loan amount is required</small>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="tenure">Loan Tenure (in months):</label>
+              <input type="text" id="tenure" formControlName="tenure" class="form-control">
+              <div *ngIf="loanForm.controls['tenure'].touched && loanForm.controls['tenure'].invalid">
+                <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['required']">*Tenure is required</small>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <div *ngIf="panid.touched && panid.invalid&&loanForm.controls['panid'].errors?.['required']">
-      <p style="color: red;">*panID is required</p>
-    </div>
-    <div class="form-group mb-3">
-      <label for="loanamount">Loan Amount:</label>
-      <input type="text" id="loanamount" formControlName="loanamount" class="form-control">
-    </div>
-    <div *ngIf="loanamount.touched && loanamount.invalid&&loanForm.controls['loanamount'].errors?.['required']">
-      <p style="color: red;">*loanamount is required</p>
-    </div>
-    <div class="form-group mb-3">
-      <label for="tenure">Loan Tenure (in months):</label>
-      <input type="text" id="tenure" formControlName="tenure" class="form-control">
-    </div>
-    <div *ngIf="tenure.touched && tenure.invalid&&loanForm.controls['tenure'].errors?.['required']">
-      <p style="color: red;">*Tenure is required</p>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </div>
 </div>
