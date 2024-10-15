@@ -1,5 +1,6 @@
-.hor-bar-chart{
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
-      width: 500px;
-      height: 500px;
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
 }
