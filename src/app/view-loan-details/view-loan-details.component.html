@@ -1,0 +1,18 @@
+
+<div>
+    <img src="C:\Users\10742980\angular-loan-management\src\assets\emojiofcash.png" alt="cash" height="20px" width="20px">
+    <h1>₹{{outStandingBalance}}</h1>
+    <h3>OutstandingBalance</h3>
+</div>
+
+<div class="hor-bar-chart">
+    <canvas id="MyChart"></canvas>
+</div>
+
+<div >
+    <h3>Upcoming Dues...</h3>
+    <div *ngFor="let number of numbers; let i=index">
+      <h3 >Due on 05 {{monthCalculator(i)}} '{{ yearCalculator(i)}} </h3>
+      <h5>₹{{monthlyEMIMOney}}</h5>
+    </div>
+</div>
