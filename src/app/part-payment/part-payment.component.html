@@ -1,0 +1,52 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header text-center">
+            <h3>Make a Pre-Payment</h3>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="prePaymentForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="loanId">Loan ID</label>
+                <input type="text" class="form-control" id="loanId" formControlName="loanId" placeholder="Enter Loan ID">
+                <div *ngIf="prePaymentForm.controls['loanId'].touched && prePaymentForm.controls['loanId'].invalid">
+                  <small class="text-danger" *ngIf="prePaymentForm.controls['loanId'].errors?.['required']">*Loan ID is required</small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="partPayment">Payment Amount</label>
+                <input type="text" class="form-control" id="partPayment" formControlName="partPayment" placeholder="Enter Payment Amount">
+                <div *ngIf="prePaymentForm.controls['partPayment'].touched && prePaymentForm.controls['partPayment'].invalid">
+                  <small class="text-danger" *ngIf="prePaymentForm.controls['partPayment'].errors?.['required']">*Payment amount is required</small>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+          </div>
+        </div>
+        <div class="card mt-4">
+          <div class="card-header text-center">
+            <h3>Payment History</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let payment of paymentHistory">
+                  <td>{{ payment.date }}</td>
+                  <td>{{ payment.amount }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
