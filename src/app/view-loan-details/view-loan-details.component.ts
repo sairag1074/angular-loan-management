@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart,registerables } from 'chart.js';
 import { ViewLoanService } from '../service/view-loan.service';
 import { Loan } from '../model/loan';
+import { Router } from '@angular/router';
 Chart.register(...registerables);
 
 @Component({
@@ -23,7 +24,12 @@ export class ViewLoanDetailsComponent implements OnInit {
     monthlyEMIMOney=this.loanDetails.emi!;
 
 
-    constructor(private service:ViewLoanService){}
+    constructor(private service:ViewLoanService,private route:Router){}
+
+     makePayment(){
+       
+          this.route.navigate(['/partpayment']);
+     }
 
   chart:any;
   ngOnInit(): void {

@@ -6,6 +6,7 @@ export interface User {
       userName?:string;
       email?:string;
       address?:string;
+      mobile?:number;
       panId?:string;
       salary?:number;
       haveLoan?:boolean;
