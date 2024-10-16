@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { ApplyLoanComponent } from './apply-loan/apply-loan.component';
 import { ErrorComponent } from './error/error.component';
 import { PartPaymentComponent } from './part-payment/part-payment.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PartPaymentComponent } from './part-payment/part-payment.component';
     HomeComponent,
     ApplyLoanComponent,
     ErrorComponent,
-    PartPaymentComponent
+    PartPaymentComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
