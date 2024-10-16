@@ -49,8 +49,10 @@
                        [class.is-default]="loanForm.controls['salary'].pristine">
                 <div *ngIf="loanForm.controls['salary'].touched && loanForm.controls['salary'].invalid">
                   <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['required']">*Salary is required</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['min']">*Salary must be at least 15,000</small>
                 </div>
               </div>
+              
               <div class="form-group mb-3 col-md-4">
                 <label for="panid">PAN ID:</label>
                 <input type="text" id="panid" formControlName="panid" class="form-control"
@@ -61,8 +63,10 @@
                   <small class="text-danger" *ngIf="loanForm.controls['panid'].errors?.['required']">*PAN ID is required</small>
                   <small class="text-danger" *ngIf="loanForm.controls['panid'].errors?.['maxlength']">*PAN ID must contain 10 characters only.</small>
                   <small class="text-danger" *ngIf="loanForm.controls['panid'].errors?.['minlength']">*PAN ID must contain 10 characters only.</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['panid'].errors?.['pattern']">*PAN ID must contain only letters and numbers.</small>
                 </div>
               </div>
+              
               <div class="form-group mb-3 col-md-4">
                 <label for="loanamount">Loan Amount:</label>
                 <input type="text" id="loanamount" formControlName="loanamount" class="form-control"
@@ -71,8 +75,10 @@
                        [class.is-default]="loanForm.controls['loanamount'].pristine">
                 <div *ngIf="loanForm.controls['loanamount'].touched && loanForm.controls['loanamount'].invalid">
                   <small class="text-danger" *ngIf="loanForm.controls['loanamount'].errors?.['required']">*Loan amount is required</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['loanamount'].errors?.['min']">*Loan amount must be greater than 50000</small>
                 </div>
               </div>
+              
               <div class="form-group mb-3 col-md-4">
                 <label for="tenure">Loan Tenure (in months):</label>
                 <input type="text" id="tenure" formControlName="tenure" class="form-control"
@@ -81,8 +87,10 @@
                        [class.is-default]="loanForm.controls['tenure'].pristine">
                 <div *ngIf="loanForm.controls['tenure'].touched && loanForm.controls['tenure'].invalid">
                   <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['required']">*Tenure is required</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['min']">*Tenure must be greater than 12 months</small>
                 </div>
               </div>
+              
             </div>
             <button type="submit" class="btn btn-primary btn-block" style="margin-right: 40%;">Submit</button>
           </form>
