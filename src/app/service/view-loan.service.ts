@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ViewLoanService {
 
-  apiUrl="/api/loans";
+  apiUrl="http://localhost:8080/api/loans";
 
   loanDetails:Loan={};
 
@@ -21,18 +21,18 @@ constructor(private httpClient:HttpClient) { }
    }
 
    setLoanDetails(loan:Loan){
-
+         console.log("inside setLoan" + loan);
         this.loanDetails=loan;
    }
 
     viewLoanDetailsById(pancardId:string):Observable<any>{
 
-      return  this.httpClient.get(this.apiUrl+"/"+pancardId)
+      return  this.httpClient.get(this.apiUrl + "/"+ pancardId)
     }
 
     applyForLoan(loan:Loan):Observable<any>{
        
-       return this.httpClient.post(this.apiUrl,loan);
+       return this.httpClient.post(this.apiUrl + "/apply",loan);
     }
 
     makePartPayment(loanId:number,partPayment:number):Observable<any>{

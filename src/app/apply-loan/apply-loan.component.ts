@@ -90,7 +90,7 @@ export class ApplyLoanComponent {
       this.service.applyForLoan(this.loan).subscribe(()=>{
             this.loanForm.reset();
 
-            this.route.navigate(['/viewloan']);
+            this.route.navigate(['/home']);
       },(error)=>{
           this.route.navigate(['/error']);
       })

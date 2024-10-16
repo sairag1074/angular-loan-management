@@ -9,6 +9,7 @@ export interface Loan {
       tenureInMonths?:number;
       intrestRate?:number;
       emi?:number;
+      totalPendingEmis?:number;
       loanStatus?:string;
       rejectionReason?:string;
       createdAt?:Date
