@@ -48,12 +48,12 @@ export class HomeComponent {
 
   onSubmit() {
 
-    this.service.viewLoanDetailsById(this.panForm.value.panid).subscribe((loanDetails :any) => {
-      console.log(loanDetails);
-      this.service.setLoanDetails(loanDetails);
-      console.log("after", loanDetails);
-      this.panForm.reset();
-      this.route.navigate(['/viewloan']);
+      this.service.viewLoanDetailsById(this.panForm.value.panid).subscribe((data) => {
+      
+        this.panForm.reset();
+           localStorage.clear();
+           localStorage.setItem("loan",JSON.stringify(data));
+        this.route.navigate(['/viewloan']);
 
     },
       (error) => {
