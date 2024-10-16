@@ -93,10 +93,12 @@ export class ApplyLoanComponent {
 
          this.user={"userName":this.loanForm.value.userName,"email":this.loanForm.value.email,"address":this.loanForm.value.address,"mobile":this.loanForm.value.mobno,"salary":this.loanForm.value.salary,"panId":this.loanForm.value.panid};
          this.loan={"loanAmount":this.loanForm.value.loanamount,"tenureInMonths":this.loanForm.value.tenure,"user":this.user};
-      this.service.applyForLoan(this.loan).subscribe(()=>{
+      this.service.applyForLoan(this.loan).subscribe((data)=>{
             this.loanForm.reset();
+            localStorage.clear();
+            localStorage.setItem("loan",JSON.stringify(data));
 
-            this.route.navigate(['/home']);
+            //this.route.navigate(['/home']);
       },(error)=>{
           this.route.navigate(['/error']);
       })

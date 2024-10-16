@@ -9,10 +9,10 @@
             <form [formGroup]="prePaymentForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
                 <label for="loanId">Loan ID</label>
-                <input type="text" class="form-control" id="loanId" formControlName="loanId" placeholder="Enter Loan ID">
-                <div *ngIf="prePaymentForm.controls['loanId'].touched && prePaymentForm.controls['loanId'].invalid">
+                <input type="text"  id="loanId" [value]="loanNumber" disabled>
+                <!-- <div *ngIf="prePaymentForm.controls['loanId'].touched && prePaymentForm.controls['loanId'].invalid">
                   <small class="text-danger" *ngIf="prePaymentForm.controls['loanId'].errors?.['required']">*Loan ID is required</small>
-                </div>
+                </div> -->
               </div>
               <div class="form-group">
                 <label for="partPayment">Payment Amount</label>

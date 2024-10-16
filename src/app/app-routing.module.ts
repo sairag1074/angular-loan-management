@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { ViewLoanDetailsComponent } from './view-loan-details/view-loan-details.component';
 import { PartPaymentComponent } from './part-payment/part-payment.component';
 import { ErrorComponent } from './error/error.component';
+import { LoanStatusComponent } from './loan-status/loan-status.component';
 
 const routes: Routes = [
 
@@ -13,6 +14,7 @@ const routes: Routes = [
     {path:'viewloan',component:ViewLoanDetailsComponent},
     {path:'partpayment',component:PartPaymentComponent},
     {path:'error',component:ErrorComponent},
+    {path:'loanstatus',component:LoanStatusComponent},
     {path:'',redirectTo:'home',pathMatch:'full'}
    
 ];

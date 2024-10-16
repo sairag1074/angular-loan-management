@@ -7,7 +7,48 @@
             <h1 class="display-4 text-primary font-weight-bold">₹{{outStandingBalance}}</h1>
             <h3 class="text-muted font-italic">Outstanding Balance</h3>
             <div class="mt-3 d-flex justify-content-center">
-                <button class="btn btn-primary mr-2">Update</button>
+                <!-- <button class="btn btn-primary mr-2">Update</button> -->
+                 <!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-primary btn-lg rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Update
+  </button>
+  <!-- Modal -->
+  <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 50px;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form [formGroup]="updateForm"  (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="panid" class="form-label">LoanID:</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="LoanID" [value]="loanDetails.loanId" readonly />
+                </div>
+             
+            </div>
+            <div class="mb-3">
+              <label for="otp" class="form-label">Loan Amount:</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="updatedLoanAmount" formControlName="updatedLoanAmount" placeholder="Enter loan amount" required />
+              </div>
+             
+            </div>
+            <div class="mb-3">
+              <label for="tenureInMOnths" class="form-label">Loan Tenure (in Months):</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="updatedTenureInMonths" formControlName="updatedTenureInMonths" placeholder="Enter tenure of months" required />
+              </div>
+             
+            </div>
+   
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" >Update Loan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
             
             </div><br>
             <button class="btn btn-success ml-2" (click)="makePayment()">Part Payment</button>

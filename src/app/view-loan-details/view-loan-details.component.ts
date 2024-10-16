@@ -3,6 +3,7 @@ import { Chart, registerables } from 'chart.js';
 import { ViewLoanService } from '../service/view-loan.service';
 import { Loan } from '../model/loan';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 Chart.register(...registerables);
 
 @Component({
@@ -12,6 +13,8 @@ Chart.register(...registerables);
 })
 export class ViewLoanDetailsComponent implements OnInit {
 
+  updateForm:FormGroup;
+
   loanDetails: Loan = {};
   outStandingBalance: number = 0;
   TotalBorrowings: number = 0;
@@ -19,7 +22,13 @@ export class ViewLoanDetailsComponent implements OnInit {
   totalMonthsEMILeft: number = 0;
   monthlyEMIMoney: number = 0;
 
-  constructor(private service: ViewLoanService, private route: Router) {}
+  constructor(private service: ViewLoanService, private route: Router,private formBuilder:FormBuilder) {
+    this.updateForm = this.formBuilder.group({
+      loanid: ['', Validators.required],
+      updatedLoanAmount:['',Validators.required],
+      updatedTenureInMonths:['',Validators.required]
+    });
+  }
 
   makePayment() {
     this.route.navigate(['/partpayment']);
@@ -27,7 +36,7 @@ export class ViewLoanDetailsComponent implements OnInit {
 
   chart: any;
   ngOnInit(): void {
-    this.loanDetails = this.service.getLoanDetails();
+    this.loanDetails = JSON.parse(localStorage.getItem("loan")!);
     this.outStandingBalance = this.loanDetails.loanAmount!;
     this.TotalBorrowings = this.loanDetails.emi! * this.loanDetails.tenureInMonths!;
     this.currentOutstanding = this.loanDetails.loanAmount!;
@@ -97,6 +106,14 @@ export class ViewLoanDetailsComponent implements OnInit {
   public yearCalculator(index: number): number {
     let yearIndex = Math.floor((new Date().getMonth() + index) / 12);
     return new Date().getFullYear() + yearIndex;
+  }
+
+  onSubmit(){
+         this.service.updateLoan(this.loanDetails.loanId!,this.updateForm.value.updatedLoanAmount,this.updateForm.value.updatedTenureInMonths).subscribe((data)=>{
+             localStorage.clear();
+             localStorage.setItem("loan",JSON.stringify(data));
+             this.route.navigate(['/viewloan']);
+         })
   }
 
   public data: any;
