@@ -21,6 +21,7 @@ export class ApplyLoanComponent {
   constructor(private fb: FormBuilder,private route:Router,private service:ViewLoanService) {
     this.loanForm = this.fb.group({
       userName: ['', Validators.required],
+      email:['',[Validators.required,Validators.email]],
       address: ['', Validators.required],
       mobno: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       salary: ['', Validators.required, Validators.min(15000)],
@@ -34,6 +35,11 @@ export class ApplyLoanComponent {
   {
     return this.loanForm.get('userName') as FormControl;
   }
+  get email(): FormControl
+  {
+    return this.loanForm.get('email') as FormControl;
+  }
+  
   get address(): FormControl
   {
     return this.loanForm.get('address') as FormControl;
@@ -85,7 +91,7 @@ export class ApplyLoanComponent {
         title: 'Added in successfully'
       });
 
-         this.user={"userName":this.loanForm.value.userName,"address":this.loanForm.value.address,"mobile":this.loanForm.value.mobno,"salary":this.loanForm.value.salary,"panId":this.loanForm.value.panid};
+         this.user={"userName":this.loanForm.value.userName,"email":this.loanForm.value.email,"address":this.loanForm.value.address,"mobile":this.loanForm.value.mobno,"salary":this.loanForm.value.salary,"panId":this.loanForm.value.panid};
          this.loan={"loanAmount":this.loanForm.value.loanamount,"tenureInMonths":this.loanForm.value.tenure,"user":this.user};
       this.service.applyForLoan(this.loan).subscribe(()=>{
             this.loanForm.reset();
