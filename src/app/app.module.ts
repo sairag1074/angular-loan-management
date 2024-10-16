@@ -11,6 +11,7 @@ import { ApplyLoanComponent } from './apply-loan/apply-loan.component';
 import { ErrorComponent } from './error/error.component';
 import { PartPaymentComponent } from './part-payment/part-payment.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LoanStatusComponent } from './loan-status/loan-status.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     ApplyLoanComponent,
     ErrorComponent,
     PartPaymentComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoanStatusComponent
   ],
   imports: [
     BrowserModule,
