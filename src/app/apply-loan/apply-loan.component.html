@@ -21,6 +21,16 @@
                 </div>
               </div>
               <div class="form-group mb-3 col-md-4">
+                <label for="email">Email:</label>
+                <input type="text" id="email" formControlName="email" class="form-control" 
+                       [class.is-invalid]="loanForm.controls['email'].touched && loanForm.controls['email'].invalid"
+                       [class.is-valid]="loanForm.controls['email'].touched && loanForm.controls['email'].valid"
+                       [class.is-default]="loanForm.controls['email'].pristine">
+                <div *ngIf="loanForm.controls['email'].touched && loanForm.controls['email'].invalid">
+                  <small class="text-danger" *ngIf="loanForm.controls['email'].errors?.['required']">*email is required</small>
+                </div>
+              </div>
+              <div class="form-group mb-3 col-md-4">
                 <label for="address">Address:</label>
                 <input type="text" id="address" formControlName="address" class="form-control"
                        [class.is-invalid]="loanForm.controls['address'].touched && loanForm.controls['address'].invalid"
