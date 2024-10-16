@@ -10,10 +10,12 @@ import { ViewLoanService } from '../service/view-loan.service';
 })
 export class HomeComponent {
   panForm: FormGroup;
-
+  isOTPSent = false;
+  isOTPVerified = false;
   constructor(private fb: FormBuilder, private route: Router, private service: ViewLoanService) {
     this.panForm = this.fb.group({
-      panid: ['', [Validators.required, Validators.maxLength(10)]]
+      panid: ['', [Validators.required, Validators.maxLength(10)]],
+      otp:['',Validators.required]
     });
 
   }
@@ -22,9 +24,21 @@ export class HomeComponent {
     return this.panForm.get('panid') as FormControl;
   }
 
-
+  get otp(): FormControl {
+    return this.panForm.get('otp') as FormControl;
+  }
   ngOnInit(): void {
 
+  }
+  sendOTP() {
+    // Simulate sending OTP
+    this.isOTPSent = true;
+    this.panForm.controls['otp'].enable();
+  }
+
+  verifyOTP() {
+    // Simulate OTP verification
+    this.isOTPVerified = true;
   }
 
   applyLoan() {
