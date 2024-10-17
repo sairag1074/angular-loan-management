@@ -18,7 +18,6 @@ export class HomeComponent {
   constructor(private fb: FormBuilder, private route: Router, private service: ViewLoanService) {
     this.panForm = this.fb.group({
       panid: ['', [Validators.required, Validators.maxLength(10)]],
-      email:['',Validators.required],
       otp:['',Validators.required]
     });
 
@@ -58,7 +57,7 @@ export class HomeComponent {
 
   onSubmit() {
 
-      this.service.viewLoanDetailsById(this.panForm.value.panid,this.panForm.value.otp,this.panForm.value.email).subscribe((data) => {
+      this.service.viewLoanDetailsById(this.panForm.value.panid,this.panForm.value.otp).subscribe((data) => {
       
           this.panForm.reset();
            localStorage.clear();
