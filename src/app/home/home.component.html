@@ -52,6 +52,9 @@
               <!-- <button type="submit" class="btn btn-primary" [disabled]="panForm.invalid">View Loan</button> -->
               <button type="submit" class="btn btn-primary" >View Loan</button>
             </div>
+            <div *ngIf="otpIsInvalid">*Otp is invalid</div>
+            <div *ngIf="noLoan">*No loan present on this PAN</div>
+
           </form>
         </div>
       </div>
