@@ -1,96 +1,117 @@
 <style>
   .modal-light-grey .modal-content {
-    background-color: #f8f9fa; /* Light grey color */
+    background-color: #f8f9fa;
+    /* Light grey color */
   }
 </style>
-<!-- Main Content -->
-<div style="width: 100%; padding: 20px; font-family: Arial, sans-serif; color: #333;">
-  <h2 style="color: #007BFF; font-weight: bold;">Welcome to Your Financial Freedom</h2>
-  <p style="font-size: 1.1em;">Discover a seamless and hassle-free way to apply for loans. Our platform offers quick approvals, transparent terms, and flexible repayment options tailored to your needs. Join the thousands of satisfied customers who have achieved their financial goals with us.</p>
-  
+<!-- Modal -->
+<div class="modal fade modal-light-grey" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" style="margin-top: 50px;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form [formGroup]="panForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="panid" class="form-label">PAN Number:</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="panid" formControlName="panid" placeholder="ABCDE1234F"
+                required />
+              <button type="button" class="btn btn-outline-secondary" (click)="sendOTP()">Send OTP</button>
+            </div>
+            <small class="form-text text-muted">Format: ABCDE1234F</small>
+            <p class="error-msg"
+              *ngIf="panid.touched && panid.invalid && panForm.controls['panid'].errors?.['required']"
+              style="color: red;">
+              *PAN ID is required
+            </p>
+            <p class="error-msg" *ngIf="panid.touched && panid.invalid && panForm.controls['panid'].errors?.['pattern']"
+              style="color: red;">
+              *PAN ID must contain 10 digits only.
+            </p>
+          </div>
+          <div class="mb-3">
+            <label for="otp" class="form-label">OTP:</label>
+            <div class="input-group">
+              <input type="password" class="form-control" id="otp" formControlName="otp" placeholder="Enter OTP"
+                [disabled]="!isOTPSent" required />
+              <button type="button" class="btn btn-outline-secondary" (click)="verifyOTP()"
+                [disabled]="!isOTPSent">Verify</button>
+            </div>
+            <p class="error-msg" *ngIf="otp.touched && otp.invalid && panForm.controls['otp'].errors?.['required']"
+              style="color: red;">
+              *OTP is required
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="submit" class="btn btn-primary" [disabled]="panForm.invalid">View Loan</button> -->
+            <button type="submit" class="btn btn-primary">View Loan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
-
-
-   <!-- Modal -->
-   <div class="modal fade modal-light-grey" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 50px;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <form [formGroup]="panForm" (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-              <label for="panid" class="form-label">PAN Number:</label>
-              <div class="input-group">
-                <input type="text" class="form-control" id="panid" formControlName="panid" placeholder="ABCDE1234F" required />
-                <button type="button" class="btn btn-outline-secondary" (click)="sendOTP(panid.value)">Send OTP</button>
-              </div>
-              <div *ngIf="isOTPSent==true">*Otp sent successfully</div>
-              <small class="form-text text-muted">Format: ABCDE1234F</small>
-              <p class="error-msg" *ngIf="panid.touched && panid.invalid && panForm.controls['panid'].errors?.['required']" style="color: red;">
-                *PAN ID is required
-              </p>
-              <p class="error-msg" *ngIf="panid.touched && panid.invalid && panForm.controls['panid'].errors?.['pattern']" style="color: red;">
-                *PAN ID must contain 10 digits only.
-              </p>
-            </div>
-            
-            <div class="mb-3">
-              <label for="otp" class="form-label">OTP:</label>
-              <div class="input-group">
-                <input type="password" class="form-control" id="otp" formControlName="otp" placeholder="Enter OTP" [disabled]="!isOTPSent" required />
-              </div>
-              <p class="error-msg" *ngIf="otp.touched && otp.invalid && panForm.controls['otp'].errors?.['required']" style="color: red;">
-                *OTP is required
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <!-- <button type="submit" class="btn btn-primary" [disabled]="panForm.invalid">View Loan</button> -->
-              <button type="submit" class="btn btn-primary" >View Loan</button>
-            </div>
-            <div *ngIf="otpIsInvalid">*Otp is invalid</div>
-            <div *ngIf="noLoan">*No loan present on this PAN</div>
-
-          </form>
+<div class="container d-flex flex-row align-items-center justify-content-center p-4"
+  style="margin: top 1px; padding:0%;">
+  <!-- Left Column with Buttons -->
+  <div class="d-flex flex-column align-items-center justify-content-center" style="width: 50%;">
+    <div class="d-flex flex-column align-items-center w-100 mt-3">
+      <!-- Main Content -->
+      <div style="width: 100%; padding: 20px; font-family: Arial, sans-serif; color: #333;">
+        <h2 style="color: #007BFF; font-weight: bold;">Welcome to Your Financial Freedom</h2>
+        <p style="font-size: 1.1em;">Discover a seamless and hassle-free way to apply for loans. Our platform offers
+          quick approvals, transparent terms, and flexible repayment options tailored to your needs. Join the thousands
+          of satisfied customers who have achieved their financial goals with us.</p>
+        <div class="flex-container d-flex flex-row align-items-center justify-content-center">
+          <button class="btn btn-outline-primary btn-lg rounded-pill mb-2" (click)="applyLoan()">
+            Apply Loan
+          </button>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-outline-primary btn-lg rounded-pill mb-2" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">
+            View Loan Details
+          </button>
         </div>
       </div>
     </div>
   </div>
-<div class="container d-flex flex-row align-items-center justify-content-center p-4" style="margin: top 1px; padding:0%;">
-  <!-- Left Column with Buttons -->
-  <div class="d-flex flex-column align-items-center justify-content-center" style="width: 50%;">
-    <div class="d-flex flex-column align-items-center w-100 mt-3">
-
-      <img src="../../assets/images/loan.jpg" alt="Description" width="500" height="600">
-   
-    </div>
-  </div>
   <!-- Right Column with Content -->
-  <div class="d-flex flex-column align-items-start justify-content-center" style="width: 50%; padding: 20px; font-family: Arial, sans-serif; color: #333;">
-    <h3 style="color: #007BFF; font-weight: bold; margin: top 1px;">Apply for a Loan in Minutes</h3>
-    <p style="font-size: 1.1em;">Our easy-to-use online application lets you apply for a loan in just a few clicks. Simply fill in your details, choose your loan amount, and submit. Get instant notifications and track your application status in real-time.</p>
-    <div class="flex-container d-flex flex-row align-items-center justify-content-center">
-      <button class="btn btn-outline-primary btn-lg rounded-pill mb-2" (click)="applyLoan()">
-        Apply Loan
-      </button>
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-outline-primary btn-lg rounded-pill mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        View Loan Details
-      </button>
-    </div>
-    <h3 style="color: #007BFF; font-weight: bold; margin-top: 20px;">Why Choose Us?</h3>
-    <p style="font-size: 1.1em; margin-bottom: 5px;">Description:</p>
-    <ul style="list-style-type: none; padding-left: 0;">
-      <li style="margin-bottom: 10px;">
-        <strong style="color: #28a745;">Fast Approvals:</strong> Our automated system ensures speedy loan approvals.
-      </li>
-      <li style="margin-bottom: 10px;">
-        <strong style="color: #28a745;">Flexible Options:</strong> Choose the loan amount and tenure that best suits your needs.
-      </li>
-      <li style="margin-bottom: 10px;">
-        <strong style="color: #28a745;">Secure and Transparent:</strong> Your data is protected with top-notch security, and our terms are clear and straightforward.
-      </li>
-    </ul>
+  <div class="d-flex flex-column align-items-start justify-content-center"
+    style="width: 50%; padding: 20px; font-family: Arial, sans-serif; color: #333;">
+    <img src="../../assets/images/image.jpg" alt="Description" width="500" height="600">
+
   </div>
 </div>
 
+<!-- Second Section: Image on the Left, Text on the Right -->
+<div class="d-flex flex-row align-items-center justify-content-center" style="width: 100%; margin-top: 40px;">
+  <div class="d-flex align-items-center justify-content-center" style="width: 50%;"> <img src="../../assets/images/mission.jpg"
+      alt="Our Mission" style="max-width: 100%; height: auto;"> </div>
+  <div class="d-flex flex-column align-items-start justify-content-center"
+    style="width: 50%; padding: 20px; font-family: Arial, sans-serif; color: #333;">
+    <h3 style="color: #007bff; font-weight: bold; margin-top: 20px;">Our Mission</h3>
+    <p style="font-size: 1.1em;">Our mission is to offer reliable, transparent, and accessible loan solutions to all our
+      customers. We believe in empowering you to make the right financial decisions.</p>
+  </div>
+</div>
+<div class="container d-flex flex-row align-items-center justify-content-center p-4" style="margin-top: 20px;">
+  <!-- First Section: Text on the Left, Image on the Right -->
+  <div class="d-flex flex-row align-items-center justify-content-center" style="width: 100%;">
+    <div class="d-flex flex-column align-items-start justify-content-center"
+      style="width: 50%; padding: 20px; font-family: Arial, sans-serif; color: #333;">
+      <h3 style="color: #007bff; font-weight: bold; margin-top: 20px">Why Choose Us?</h3>
+      <p style="font-size: 1.1em; margin-bottom: 5px">Description:</p>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 10px;"> <strong style="color: #28a745">Fast Approvals:</strong> Our automated system
+          ensures speedy loan approvals. </li>
+        <li style="margin-bottom: 10px;"> <strong style="color: #28a745">Flexible Options:</strong> Choose the loan
+          amount and tenure that best suits your needs. </li>
+        <li style="margin-bottom: 10px;"> <strong style="color: #28a745">Secure and Transparent:</strong> Your data is
+          protected with top-notch security, and our terms are clear and straightforward. </li>
+      </ul>
+    </div>
+    <div class="d-flex align-items-center justify-content-center" style="width: 50%;"> <img
+        src="../../assets/images/aboutus.jpg" alt="Why Choose Us" style="max-width: 100%; height: auto;"> </div>
+  </div>
