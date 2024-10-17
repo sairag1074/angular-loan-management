@@ -31,9 +31,9 @@ constructor(private httpClient:HttpClient) { }
       console.log("after setting loan",this.loanDetails);
    }
 
-    viewLoanDetailsById(pancardId:string,otp:number,mail:string):Observable<any>{
+    viewLoanDetailsById(pancardId:string,otp:number):Observable<any>{
 
-      return  this.httpClient.get(this.apiUrl+"/view",{params:new HttpParams().set("mail",mail).set("otp",otp).set("panId",pancardId)});
+      return  this.httpClient.get(this.apiUrl+"/view",{params:new HttpParams().set("otp",otp).set("panId",pancardId)});
     }
 
     applyForLoan(loan:Loan):Observable<any>{
