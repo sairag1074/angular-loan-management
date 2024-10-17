@@ -1,6 +1,6 @@
 
-<div class="container mt-5">
-  <div class="row justify-content-center">
+<div class="container mt-5 d-flex justify-content-center" style="width: 100%;">
+  <div class="row justify-content-center" style="width: 70%;">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header text-center">
@@ -58,7 +58,11 @@
                        [class.is-default]="loanForm.controls['salary'].pristine">
                 <div *ngIf="loanForm.controls['salary'].touched && loanForm.controls['salary'].invalid">
                   <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['required']">*Salary is required</small>
-                  <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['min']">*Salary must be at least 15,000</small>
+                  <!-- <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['min']">*Salary must be at least 15,000</small>
+                   -->
+                  <!-- <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['required']">*salary is required</small> -->
+                  <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['minSalary']">*salary must be greater than 15000</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['maxSalary']">*salary must be less than 10000000</small>
                 </div>
               </div>
               
@@ -97,6 +101,7 @@
                 <div *ngIf="loanForm.controls['tenure'].touched && loanForm.controls['tenure'].invalid">
                   <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['required']">*Tenure is required</small>
                   <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['minTenure']">*Tenure must be greater than 12 months</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['maxTenure']">*Tenure must be less than 160 months</small>
                 </div>
               </div>
               
@@ -106,6 +111,10 @@
         </div>
       </div>
     </div>
+  </div>
+  <div style="width: 30%;">
+    <img
+        src="../../assets/images/form.jpg" alt="Why Choose Us" style="max-width: 100%; height: 100%;"> 
   </div>
 </div>
 

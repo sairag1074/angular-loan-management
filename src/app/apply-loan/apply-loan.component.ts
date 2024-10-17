@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { ViewLoanService } from '../service/view-loan.service';
 import { Loan } from '../model/loan';
 import { User } from '../model/user';
+import { controllers } from 'chart.js';
 
 @Component({
   selector: 'app-apply-loan',
@@ -24,19 +25,38 @@ export class ApplyLoanComponent {
       email:['',[Validators.required,Validators.email]],
       address: ['', Validators.required],
       mobno: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      salary: ['', Validators.required, Validators.min(15000)],
+      salary: ['', [Validators.required, this.salaryValidator()]],
       panid: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[A-Za-z0-9]+$')]],
       loanamount: ['', [Validators.required, Validators.min(50000)]],
         tenure: ['', [Validators.required,  this.tenureValidator()]]
     });
 
   }
+
+
+  salaryValidator():ValidatorFn{
+    return (control:AbstractControl):ValidationErrors|null=>{
+      const value = control.value;
+      if (value < 15000) {
+        return { minSalary: true };
+      } else if (value > 10000000) {
+        return { maxSalary: true };
+      }
+      return null;
+    };
+  }
   tenureValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
-      return value > 12 ? null : { minTenure: true };
+      if (value < 12) {
+        return { minTenure: true };
+      } else if (value > 360) {
+        return { maxTenure: true };
+      }
+      return null;
     };
   }
+  
   get userName(): FormControl
   {
     return this.loanForm.get('userName') as FormControl;
