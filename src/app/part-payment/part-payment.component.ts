@@ -24,8 +24,15 @@ export class PartPaymentComponent {
   ngOnInit(): void {
   
        this.loanNumber=JSON.parse(localStorage.getItem("loan")!).loanId;
+       this.fetchPaymentHistory();
   }
-
+  fetchPaymentHistory(): void {
+    // this.service.getPaymentHistory(this.loanNumber).subscribe((data) => {
+    //   this.paymentHistory = data;
+    // }, (error) => {
+    //   console.error('Error fetching payment history', error);
+    // });
+  }
   onSubmit() {
    
          this.service.makePartPayment(this.loanNumber,this.prePaymentForm.value.partPayment).subscribe((data)=>{

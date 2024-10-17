@@ -8,3 +8,21 @@
 .bg{
     opacity: 1 !important;
 }
+.card {
+    width: 200px; /* Set a fixed width */
+    height: 150px; /* Set a fixed height */
+    background: linear-gradient(135deg, #f8f9fa, #e0e0e0);
+    border-radius: 10px;
+    margin: auto; /* Center the card horizontally */
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.card-spacing {
+    margin-bottom: 20px; /* Adjust the value as needed */
+    margin-right: 20px; 
+}

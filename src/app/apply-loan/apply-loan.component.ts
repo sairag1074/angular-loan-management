@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ViewLoanService } from '../service/view-loan.service';
@@ -27,9 +27,15 @@ export class ApplyLoanComponent {
       salary: ['', Validators.required, Validators.min(15000)],
       panid: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[A-Za-z0-9]+$')]],
       loanamount: ['', [Validators.required, Validators.min(50000)]],
-        tenure: ['', [Validators.required, Validators.min(12)]]
+        tenure: ['', [Validators.required,  this.tenureValidator()]]
     });
 
+  }
+  tenureValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      return value > 12 ? null : { minTenure: true };
+    };
   }
   get userName(): FormControl
   {

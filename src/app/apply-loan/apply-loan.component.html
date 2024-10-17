@@ -96,7 +96,7 @@
                        [class.is-default]="loanForm.controls['tenure'].pristine">
                 <div *ngIf="loanForm.controls['tenure'].touched && loanForm.controls['tenure'].invalid">
                   <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['required']">*Tenure is required</small>
-                  <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['min']">*Tenure must be greater than 12 months</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['minTenure']">*Tenure must be greater than 12 months</small>
                 </div>
               </div>
               
