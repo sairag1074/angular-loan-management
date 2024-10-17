@@ -12,6 +12,9 @@ export class ViewLoanService {
 
   loanDetails:Loan={};
 
+  
+
+
 constructor(private httpClient:HttpClient) { }
 
 
@@ -21,13 +24,16 @@ constructor(private httpClient:HttpClient) { }
    }
 
    setLoanDetails(loan:Loan){
-         console.log("inside setLoan" + loan);
+
+      console.log("setLOan metyhod",loan);
+
         this.loanDetails=loan;
+      console.log("after setting loan",this.loanDetails);
    }
 
     viewLoanDetailsById(pancardId:string):Observable<any>{
 
-      return  this.httpClient.get(this.apiUrl + "/"+ pancardId)
+      return  this.httpClient.get(this.apiUrl+"/"+pancardId)
     }
 
     applyForLoan(loan:Loan):Observable<any>{
@@ -43,7 +49,7 @@ constructor(private httpClient:HttpClient) { }
 
     updateLoan(loanId:number,loanAmount:number,tenureInMonths:number):Observable<any>{
 
-        return this.httpClient.put(this.apiUrl+"/updateLoan/"+loanId, null,{ params : new HttpParams().set("loanAmount",loanAmount).set("tenureInMOnths",tenureInMonths)});
+        return this.httpClient.put(this.apiUrl+"/updateLoan/"+loanId,new HttpParams().set("loanAmount",loanAmount).set("tenureInMonths",tenureInMonths));
     }
 
     findUserByPanId(panId:string):Observable<any>{
@@ -54,5 +60,8 @@ constructor(private httpClient:HttpClient) { }
     getAllLoanDetails():Observable<any>{
 
         return this.httpClient.get(this.apiUrl);
+    }
+    getPaymentHistory(loanId: number): Observable<{ date: string, amount: number }[]> {
+      return this.httpClient.get<{ date: string, amount: number }[]>(`${this.apiUrl}/loans/${loanId}/payments`);
     }
 }

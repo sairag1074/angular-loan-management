@@ -8,24 +8,24 @@
           <div class="card-body">
             <form [formGroup]="prePaymentForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
-                <label for="loanId">Loan ID</label>
+                <label for="loanId">Loan ID :</label>
                 <input type="text"  id="loanId" [value]="loanNumber" disabled>
                 <!-- <div *ngIf="prePaymentForm.controls['loanId'].touched && prePaymentForm.controls['loanId'].invalid">
                   <small class="text-danger" *ngIf="prePaymentForm.controls['loanId'].errors?.['required']">*Loan ID is required</small>
                 </div> -->
-              </div>
+              </div><br>
               <div class="form-group">
                 <label for="partPayment">Payment Amount</label>
                 <input type="text" class="form-control" id="partPayment" formControlName="partPayment" placeholder="Enter Payment Amount">
                 <div *ngIf="prePaymentForm.controls['partPayment'].touched && prePaymentForm.controls['partPayment'].invalid">
                   <small class="text-danger" *ngIf="prePaymentForm.controls['partPayment'].errors?.['required']">*Payment amount is required</small>
                 </div>
-              </div>
+              </div><br>
               <button type="submit" class="btn btn-primary btn-block">Submit</button>
             </form>
           </div>
         </div>
-        <div class="card mt-4">
+        <!-- <div class="card mt-4">
           <div class="card-header text-center">
             <h3>Payment History</h3>
           </div>
@@ -45,7 +45,7 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

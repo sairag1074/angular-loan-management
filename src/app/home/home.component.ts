@@ -32,13 +32,13 @@ export class HomeComponent {
   }
   sendOTP() {
     // Simulate sending OTP
-    this.isOTPSent = true;
-    this.panForm.controls['otp'].enable();
+    // this.isOTPSent = true;
+    // this.panForm.controls['otp'].enable();
   }
 
   verifyOTP() {
     // Simulate OTP verification
-    this.isOTPVerified = true;
+    // this.isOTPVerified = true;
   }
 
   applyLoan() {
