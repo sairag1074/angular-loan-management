@@ -24,7 +24,7 @@ export class ApplyLoanComponent {
       email:['',[Validators.required,Validators.email]],
       address: ['', Validators.required],
       mobno: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      salary: ['', Validators.required, Validators.min(15000)],
+      salary: ['', [Validators.required, Validators.min(15000)]],
       panid: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[A-Za-z0-9]+$')]],
       loanamount: ['', [Validators.required, Validators.min(50000)]],
         tenure: ['', [Validators.required,  this.tenureValidator()]]
@@ -34,7 +34,7 @@ export class ApplyLoanComponent {
   tenureValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
-      return value > 12 ? null : { minTenure: true };
+      return value > 11 ? null : { minTenure: true };
     };
   }
   get userName(): FormControl
@@ -103,6 +103,10 @@ export class ApplyLoanComponent {
             this.loanForm.reset();
             localStorage.clear();
             localStorage.setItem("loan",JSON.stringify(data));
+
+            if(data.loanStatus=="Rejected"){
+              this.route.navigate(['/loanstatus']);
+            }
 
             //this.route.navigate(['/home']);
       },(error)=>{

@@ -22,8 +22,9 @@
               <label for="panid" class="form-label">PAN Number:</label>
               <div class="input-group">
                 <input type="text" class="form-control" id="panid" formControlName="panid" placeholder="ABCDE1234F" required />
-                <button type="button" class="btn btn-outline-secondary" (click)="sendOTP()">Send OTP</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="sendOTP(panid.value)">Send OTP</button>
               </div>
+              <div *ngIf="isOTPSent==true">*Otp sent successfully</div>
               <small class="form-text text-muted">Format: ABCDE1234F</small>
               <p class="error-msg" *ngIf="panid.touched && panid.invalid && panForm.controls['panid'].errors?.['required']" style="color: red;">
                 *PAN ID is required
@@ -32,11 +33,15 @@
                 *PAN ID must contain 10 digits only.
               </p>
             </div>
+            
+            <div class="input-group">
+              <label for="email" class="form-label">Email:</label>
+              <input type="input" class="form-control" id="email" formControlName="email" placeholder="Enter email"  required />
+            </div>
             <div class="mb-3">
               <label for="otp" class="form-label">OTP:</label>
               <div class="input-group">
                 <input type="password" class="form-control" id="otp" formControlName="otp" placeholder="Enter OTP" [disabled]="!isOTPSent" required />
-                <button type="button" class="btn btn-outline-secondary" (click)="verifyOTP()" [disabled]="!isOTPSent">Verify</button>
               </div>
               <p class="error-msg" *ngIf="otp.touched && otp.invalid && panForm.controls['otp'].errors?.['required']" style="color: red;">
                 *OTP is required

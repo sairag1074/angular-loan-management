@@ -31,9 +31,9 @@ constructor(private httpClient:HttpClient) { }
       console.log("after setting loan",this.loanDetails);
    }
 
-    viewLoanDetailsById(pancardId:string):Observable<any>{
+    viewLoanDetailsById(pancardId:string,otp:number,mail:string):Observable<any>{
 
-      return  this.httpClient.get(this.apiUrl+"/"+pancardId)
+      return  this.httpClient.get(this.apiUrl+"/view",{params:new HttpParams().set("mail",mail).set("otp",otp).set("panId",pancardId)});
     }
 
     applyForLoan(loan:Loan):Observable<any>{
@@ -63,5 +63,10 @@ constructor(private httpClient:HttpClient) { }
     }
     getPaymentHistory(loanId: number): Observable<{ date: string, amount: number }[]> {
       return this.httpClient.get<{ date: string, amount: number }[]>(`${this.apiUrl}/loans/${loanId}/payments`);
+    }
+
+    generateOtp(pandId:string):Observable<any>{
+
+          return this.httpClient.post(this.apiUrl+"/generate",new HttpParams().set("panId",pandId));
     }
 }
