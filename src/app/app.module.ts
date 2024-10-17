@@ -29,7 +29,8 @@ import { LoanStatusComponent } from './loan-status/loan-status.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
