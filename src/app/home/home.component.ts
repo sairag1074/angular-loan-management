@@ -58,7 +58,7 @@ export class HomeComponent {
           this.panForm.reset();
            localStorage.clear();
            localStorage.setItem("loan",JSON.stringify(data));
-
+          this.route.navigate(["/viewloan"]);
     },
       (error) => {
 

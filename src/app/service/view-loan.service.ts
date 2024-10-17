@@ -49,7 +49,7 @@ constructor(private httpClient:HttpClient) { }
 
     updateLoan(loanId:number,loanAmount:number,tenureInMonths:number):Observable<any>{
 
-        return this.httpClient.put(this.apiUrl+"/updateLoan/"+loanId,new HttpParams().set("loanAmount",loanAmount).set("tenureInMonths",tenureInMonths));
+        return this.httpClient.put(this.apiUrl+"/updateLoan/"+loanId,new HttpParams().set("loanAmount",loanAmount).set("tenureInMOnths",tenureInMonths));
     }
 
     findUserByPanId(panId:string):Observable<any>{
