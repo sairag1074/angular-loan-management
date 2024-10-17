@@ -12,6 +12,8 @@ export class HomeComponent {
   panForm: FormGroup;
   isOTPSent = false;
   isOTPVerified = false;
+  otpIsInvalid=false;
+  noLoan=false;
   otpRecievedFromBackend:string="";
   constructor(private fb: FormBuilder, private route: Router, private service: ViewLoanService) {
     this.panForm = this.fb.group({
@@ -32,6 +34,9 @@ export class HomeComponent {
   ngOnInit(): void {
 
          this.isOTPSent=false;
+         this.otpIsInvalid=false;
+         this.noLoan=false;
+
   }
   sendOTP(pandId:string) {
 
@@ -62,7 +67,14 @@ export class HomeComponent {
     },
       (error) => {
 
-        this.route.navigate(["/error"]);
+            if(error.status==401){
+
+                 this.otpIsInvalid=true;
+            }
+            else if(error.status=400){
+
+                this.noLoan=true;
+            }
       })
   }
 }
