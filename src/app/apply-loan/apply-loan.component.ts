@@ -18,6 +18,8 @@ export class ApplyLoanComponent {
   loan:Loan={};
 
     user:User={};
+
+    laonStatus=false;
   
   constructor(private fb: FormBuilder,private route:Router,private service:ViewLoanService) {
     this.loanForm = this.fb.group({
@@ -54,6 +56,7 @@ export class ApplyLoanComponent {
         return { maxTenure: true };
       }
       return null;
+
     };
   }
   
@@ -124,9 +127,17 @@ export class ApplyLoanComponent {
             localStorage.clear();
             localStorage.setItem("loan",JSON.stringify(data));
 
+            if(data.loanStatus=="Rejected"){
+              this.route.navigate(['/loanstatus']);
+            }
+
             //this.route.navigate(['/home']);
       },(error)=>{
-          this.route.navigate(['/error']);
+          
+              if(error.error.status==403){
+                localStorage.clear();
+                this.laonStatus==true;
+              }
       })
 
  

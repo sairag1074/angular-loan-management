@@ -12,6 +12,9 @@ export class HomeComponent {
   panForm: FormGroup;
   isOTPSent = false;
   isOTPVerified = false;
+  otpIsInvalid=false;
+  noLoan=false;
+  otpRecievedFromBackend:string="";
   constructor(private fb: FormBuilder, private route: Router, private service: ViewLoanService) {
     this.panForm = this.fb.group({
       panid: ['', [Validators.required, Validators.maxLength(10)]],
@@ -29,16 +32,22 @@ export class HomeComponent {
   }
   ngOnInit(): void {
 
-  }
-  sendOTP() {
-    // Simulate sending OTP
-    // this.isOTPSent = true;
-    // this.panForm.controls['otp'].enable();
-  }
+         this.isOTPSent=false;
+         this.otpIsInvalid=false;
+         this.noLoan=false;
 
-  verifyOTP() {
-    // Simulate OTP verification
-    // this.isOTPVerified = true;
+  }
+  sendOTP(pandId:string) {
+
+    this.service.generateOtp(pandId).subscribe((data)=>{
+
+         console.log(data);
+         this.otpRecievedFromBackend=data;
+         
+    },(error)=>{
+      if(error.error.text=="Otp sent successfully"){
+        this.isOTPSent=true;
+      }})
   }
 
   applyLoan() {
@@ -48,17 +57,23 @@ export class HomeComponent {
 
   onSubmit() {
 
-      this.service.viewLoanDetailsById(this.panForm.value.panid).subscribe((data) => {
+      this.service.viewLoanDetailsById(this.panForm.value.panid,this.panForm.value.otp).subscribe((data) => {
       
-        this.panForm.reset();
+          this.panForm.reset();
            localStorage.clear();
            localStorage.setItem("loan",JSON.stringify(data));
-        this.route.navigate(['/viewloan']);
-
+          this.route.navigate(["/viewloan"]);
     },
       (error) => {
 
-        this.route.navigate(["/error"]);
+            if(error.status==401){
+
+                 this.otpIsInvalid=true;
+            }
+            else if(error.status=400){
+
+                this.noLoan=true;
+            }
       })
   }
 }
