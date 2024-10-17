@@ -5,14 +5,14 @@ import { Loan } from '../model/loan';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 Chart.register(...registerables);
-
+import { faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-view-loan-details',
   templateUrl: './view-loan-details.component.html',
   styleUrls: ['./view-loan-details.component.css']
 })
 export class ViewLoanDetailsComponent implements OnInit {
-
+  faHandHoldingUsd = faHandHoldingUsd;
   updateForm:FormGroup;
 
   loanDetails: Loan = {};
