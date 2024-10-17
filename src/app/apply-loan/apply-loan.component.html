@@ -59,6 +59,7 @@
                 <div *ngIf="loanForm.controls['salary'].touched && loanForm.controls['salary'].invalid">
                   <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['required']">*Salary is required</small>
                   <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['min']">*Salary must be at least 15,000</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['salary'].errors?.['max']">*Salary must be at least 10,00,00,000</small>
                 </div>
               </div>
               
@@ -84,7 +85,8 @@
                        [class.is-default]="loanForm.controls['loanamount'].pristine">
                 <div *ngIf="loanForm.controls['loanamount'].touched && loanForm.controls['loanamount'].invalid">
                   <small class="text-danger" *ngIf="loanForm.controls['loanamount'].errors?.['required']">*Loan amount is required</small>
-                  <small class="text-danger" *ngIf="loanForm.controls['loanamount'].errors?.['min']">*Loan amount must be greater than 50000</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['loanamount'].errors?.['min']">*Loan amount must be greater than 50,000</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['loanamount'].errors?.['max']">*Loan amount must be less than 10,00,00,000</small>
                 </div>
               </div>
               
@@ -97,6 +99,7 @@
                 <div *ngIf="loanForm.controls['tenure'].touched && loanForm.controls['tenure'].invalid">
                   <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['required']">*Tenure is required</small>
                   <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['min']">*Tenure must be greater than 12 months</small>
+                  <small class="text-danger" *ngIf="loanForm.controls['tenure'].errors?.['max']">*Tenure must be less than 360 months</small>
                 </div>
               </div>
               

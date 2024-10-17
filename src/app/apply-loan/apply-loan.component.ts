@@ -24,10 +24,10 @@ export class ApplyLoanComponent {
       email:['',[Validators.required,Validators.email]],
       address: ['', Validators.required],
       mobno: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      salary: ['', Validators.required, Validators.min(15000)],
+      salary:['', [Validators.required, Validators.min(15000), Validators.max(100000000)]],
       panid: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[A-Za-z0-9]+$')]],
-      loanamount: ['', [Validators.required, Validators.min(50000)]],
-        tenure: ['', [Validators.required, Validators.min(12)]]
+      loanamount: ['', [Validators.required, Validators.min(50000), Validators.max(100000000)]],
+        tenure: ['', [Validators.required, Validators.min(12), Validators.max(360)]]
     });
 
   }
